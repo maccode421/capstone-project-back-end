@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2) do
+ActiveRecord::Schema.define(version: 20171003200546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,5 +33,31 @@ ActiveRecord::Schema.define(version: 2) do
     t.index ["token"], name: "index_users_on_token", unique: true, using: :btree
   end
 
+  create_table "vehicle_logs", force: :cascade do |t|
+    t.integer  "vehicle_id"
+    t.integer  "mileage"
+    t.integer  "gas_price"
+    t.string   "repair_type"
+    t.integer  "total_price"
+    t.date     "date"
+    t.string   "receipt"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["vehicle_id"], name: "index_vehicle_logs_on_vehicle_id", using: :btree
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "make"
+    t.string   "model"
+    t.integer  "year"
+    t.integer  "mileage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_vehicles_on_user_id", using: :btree
+  end
+
   add_foreign_key "examples", "users"
+  add_foreign_key "vehicle_logs", "vehicles"
+  add_foreign_key "vehicles", "users"
 end

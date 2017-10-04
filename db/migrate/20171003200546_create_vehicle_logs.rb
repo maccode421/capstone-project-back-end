@@ -3,9 +3,9 @@ class CreateVehicleLogs < ActiveRecord::Migration[5.0]
     create_table :vehicle_logs do |t|
       t.references :vehicle, foreign_key: true
       t.integer :mileage
-      t.integer :gas_price
+      t.decimal :gas_price, :precision => 8, scale => 2
       t.string :repair_type
-      t.integer :total_price
+      t.decimal :total_price, :precision => 8, scale => 2
       t.date :date
       t.string :receipt
 
